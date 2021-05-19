@@ -1,3 +1,13 @@
+import sqlite3, sys
+import databaseFetch as db
+import gameComponents as game
+
+
+#setting up random pokemon
+#plPoke = ["Pikachu", "Fire", "Thunderbolt", 3, "Tackle", 2]
+#cpuPoke = ["Charizard", "Fire", "Flamethrower", 3, "Scratch", 3]
+
+
 
 #This is the main game loop for the pokemon card game
 #I will be using letters to represent how each variable is used and coincides with one another
@@ -13,7 +23,7 @@ try:
     #introfunct()
     
     #This is where the player chooses the amount of pokemon they wish to play with
-    numPoke = 3 #this will be a funct
+    numPoke = input() #this will be a funct
     
     #This is where a function that assigns random pokemon will occur. These are lists nested lists of each poke
     plTotalPoke = randomPokeAssign(numPoke)
@@ -42,8 +52,8 @@ try:
           #picks random cpu pokemon
           cpuPoke = usePoke(cpuTotalPoke, rand.int(0, cpuPokeLeft))#add 1 to pokeleft for chosing
         #this prints off the main starter screen 
-        roundStart(plPoke, plHealth, cpuPoke, cpuHealth) 
-        plAttack = chooseAttack(plPoke) 
+        game.roundStart(plPoke, plHealth, cpuPoke, cpuHealth) 
+        plAttack = game.chooseAttack(plPoke) 
         #asks the player to chose their attack, returns the damage
         cpuNewHP = removeHP(cpuPoke, plAttack) 
         #This removes the hp from the pokemon health, prints damage done (checks for type effectiveness if time), and returns the new HP
@@ -54,10 +64,11 @@ try:
           if len(cpuTotalPoke) == 0: #no pokemon left
             #game ends, player is winner
             gameOver("player")
+            break
           else:
             cpuNewPoke == True
             continue #This makes it so the opponent can't take their turn if their pokemon faints
-        cpuAttack = randomAttack(cpuPoke) #choses a random attack
+        cpuAttack = game.chooseAttack(cpuPoke) #choses a random attack
         plNewHP = removeHP(plPoke, cpuAttack)
         if plNewHP <= 0:
           pokeFaint(plPoke)
@@ -73,3 +84,17 @@ try:
 except KeyboardInterrupt:
   print("\n\n\u001b[33mThis program will now close\nThank you for playing Pokecard Battle\n")
   exit()
+
+  '''
+FUNCTIONS LEFT TO CODE
+  L
+randomPokeAssign(numPoke)
+selectPoke(plTotalPoke)
+usePoke(plTotalPoke, pokeChoice)
+
+  R
+removeHP(cpuPoke, plAttack) 
+pokeFaint(cpuPoke)
+gameOver("player")
+
+  '''
