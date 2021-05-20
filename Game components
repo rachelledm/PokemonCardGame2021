@@ -1,0 +1,82 @@
+import random as rand
+
+#setting up random pokemon for testing
+
+
+plPoke = ["Pikachu", "Fire", "Thunderbolt", 3, "Tackle", 2]
+cpuPoke = ["Charizard", "Fire", "Flamethrower", 3, "Scratch", 3]
+plHealth = 6
+cpuHealth = 3
+  
+
+#makes and prints a healthbar 
+def makeHealthBar(pokeHealth):
+  i = 0
+  hBar = []
+  while i < pokeHealth:
+    hBar.append("O")
+    i += 1
+  print("HP | ", end = "")
+  if len(hBar) <= 3:
+    print("\u001b[31m", end = "")
+    print(*hBar, sep=" ")
+    print("\u001b[0m", end = "")
+  else:
+    print(*hBar, sep=" ")
+  return hBar
+
+#prints off the round start screen
+def roundStart(plPokeName, plHealth, cpuPokeName, cpuHealth):
+  print("\u001b[1m{}\u001b[0m".format(cpuPoke[0]))
+  #this will also print the health bar
+  cpuHBar = makeHealthBar(cpuHealth)
+  #TBA acsii of pokemon?
+  print("\n\n\n\n\n\n")
+  print("\u001b[1m{}\u001b[0m".format(plPoke[0]))
+  plHBar = makeHealthBar(plHealth)
+  
+
+
+#choses an attack
+def chooseAttack(pokeName, m1Name, m1Dam, m2Name, m2Dam, random):
+  print("1. Use {} for {} damage\n2. Use {} for {} damage".format(m1Name, m1Dam, m2Name, m2Dam))
+  #this means its a CPU's turn
+  if random == True:
+    choice = rand.randint(1,2)
+  else:
+    choice = enterNumber("Which move do you chose? ", 2)
+  #implementing choice
+  if choice == 1:
+    print("{} used {}!".format(pokeName, m1Name))
+    return m1Dam
+  elif choice ==2:
+    print("{} used {}!".format(pokeName, m2Name))
+    return m2Dam
+
+#TBA
+def typeEffect(plType, cpuType):
+  print("Returns whether pos effect neg effect or no effect")
+
+'''
+def removeHP(poke, attack):
+  print("Removes health from poke based on attack")
+Luxan will add later
+'''
+
+def enterNumber(text, range):
+  while True:
+    numEntered = input("{}\u001b[32m".format(text))
+    print("\u001b[38m\u001b[0m", end = "\n")
+    try:
+      numEntered = int(numEntered)
+      if 0 < numEntered <= range:
+        #changes back to int as menu deals with choices only
+        return int(numEntered)
+      else:
+        print("That number is out of range, try again.\n")
+    except ValueError:
+        print("That isn't a valid option, try again\n")
+
+#tests to see if it works
+#roundStart(plPoke[0],plHealth, cpuPoke[0], cpuHealth)
+#print(chooseAttack(plPoke[0], plPoke[2], plPoke[3], plPoke[4], plPoke[5], False))
