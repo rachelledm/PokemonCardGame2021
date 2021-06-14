@@ -1,4 +1,26 @@
 import random as rand
+import database as db
+import os
+import asciiList as asc
+
+
+#introduction and menu
+
+def introFunct():
+  asc.introAnimation()
+  asc.titlePrint()
+  print("\u001b[31m\u001b[51mWelcome to PokeBattle! This program uses a Pokemon database to battle a player against a CPU\u001b[0m\n\u001b[40mAll choices in the program are made using number inputs pertaining to listed options\u001b[0m\n\u001b[30m\u001b[37mThis is the main menu. Here you can choose to edit or osberve the database, and begin the game\u001b[0m\n")
+  print("\u001b[32mWill you go to the database menu or start the game?\u001b[0m")
+  print("1. Database\n2. Start Game")
+  choice = enterNumber("Which menu would you like? ", 2)
+  if choice == 1:
+    os.system("clear")
+    print("Accesing database...\n")
+    return False
+  elif choice == 2:
+    os.system("clear")
+    print("Beginning game...\n")
+    return True
 
 #makes and prints a healthbar 
 def makeHealthBar(pokeHealth):
@@ -22,7 +44,7 @@ def roundStart(plPokeName, plHealth, cpuPokeName, cpuHealth):
   #this will also print the health bar
   cpuHBar = makeHealthBar(cpuHealth)
   #TBA acsii of pokemon?
-  print(pokeball_ASCII)
+  print(asc.pokeballASCII)
   print("\u001b[1m{}\u001b[0m".format(plPoke[0]))
   plHBar = makeHealthBar(plHealth)
   
@@ -106,45 +128,4 @@ def enterNumber(text, range):
     except ValueError:
         print("That isn't a valid option, try again\n")
 
-#Runs one round of poke game
-'''
-need to import os for this test code to function
 
-#setting up random pokemon for testing
-plPoke = ["Blastoise", "Water", "Water Spout", 3, "Steam Blast", 2]
-cpuPoke = ["Charizard", "Fire", "Flamethrower", 3, "Scratch", 3]
-plHealth = 10
-cpuHealth = 10
-
-roundStart(plPoke[0],plHealth, cpuPoke[0], cpuHealth)
-dmg = chooseAttack(plPoke[0], plPoke[2], plPoke[3], plPoke[4], plPoke[5], False)
-cpuHealth = removeHP(cpuPoke[0], cpuHealth, dmg, plPoke[1], cpuPoke[1])
-dmg = chooseAttack(cpuPoke[0], cpuPoke[2], cpuPoke[3], cpuPoke[4], cpuPoke[5], True)
-plHealth = removeHP(plPoke[0], plHealth, dmg, cpuPoke[1], plPoke[1])
-input("enter any key to continue...")
-os.system("clear")
-roundStart(plPoke[0], plHealth, cpuPoke[0], cpuHealth)
-'''
-
-#ASCII art
-pokeball_ASCII = r"""
-────────▄███████████▄────────
-─────▄███▓▓▓▓▓▓▓▓▓▓▓███▄─────
-────███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███────
-───██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██───
-──██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██──
-─██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██─
-██▓▓▓▓▓▓▓▓▓███████▓▓▓▓▓▓▓▓▓██
-██▓▓▓▓▓▓▓▓██░░░░░██▓▓▓▓▓▓▓▓██
-██▓▓▓▓▓▓▓██░░███░░██▓▓▓▓▓▓▓██
-███████████░░███░░███████████
-██░░░░░░░██░░███░░██░░░░░░░██
-██░░░░░░░░██░░░░░██░░░░░░░░██
-██░░░░░░░░░███████░░░░░░░░░██
-─██░░░░░░░░░░░░░░░░░░░░░░░██─
-──██░░░░░░░░░░░░░░░░░░░░░██──
-───██░░░░░░░░░░░░░░░░░░░██───
-────███░░░░░░░░░░░░░░░███────
-─────▀███░░░░░░░░░░░███▀─────
-────────▀███████████▀────────"""
-#https://textart4u.blogspot.com/2014/04/pokeball-copy-paste-ascii-text-art.html
