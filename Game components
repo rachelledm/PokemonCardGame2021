@@ -22,7 +22,7 @@ def roundStart(plPokeName, plHealth, cpuPokeName, cpuHealth):
   #this will also print the health bar
   cpuHBar = makeHealthBar(cpuHealth)
   #TBA acsii of pokemon?
-  print("\n\n\n\n\n\n")
+  print(pokeball_ASCII)
   print("\u001b[1m{}\u001b[0m".format(plPoke[0]))
   plHBar = makeHealthBar(plHealth)
   
@@ -125,3 +125,26 @@ input("enter any key to continue...")
 os.system("clear")
 roundStart(plPoke[0], plHealth, cpuPoke[0], cpuHealth)
 '''
+
+#ASCII art
+pokeball_ASCII = r"""
+────────▄███████████▄────────
+─────▄███▓▓▓▓▓▓▓▓▓▓▓███▄─────
+────███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███────
+───██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██───
+──██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██──
+─██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██─
+██▓▓▓▓▓▓▓▓▓███████▓▓▓▓▓▓▓▓▓██
+██▓▓▓▓▓▓▓▓██░░░░░██▓▓▓▓▓▓▓▓██
+██▓▓▓▓▓▓▓██░░███░░██▓▓▓▓▓▓▓██
+███████████░░███░░███████████
+██░░░░░░░██░░███░░██░░░░░░░██
+██░░░░░░░░██░░░░░██░░░░░░░░██
+██░░░░░░░░░███████░░░░░░░░░██
+─██░░░░░░░░░░░░░░░░░░░░░░░██─
+──██░░░░░░░░░░░░░░░░░░░░░██──
+───██░░░░░░░░░░░░░░░░░░░██───
+────███░░░░░░░░░░░░░░░███────
+─────▀███░░░░░░░░░░░███▀─────
+────────▀███████████▀────────"""
+#https://textart4u.blogspot.com/2014/04/pokeball-copy-paste-ascii-text-art.html
