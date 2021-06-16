@@ -1,4 +1,27 @@
 import random as rand
+import database as db
+import os
+import asciiList as asc
+from pygame import mixer
+
+mixer.init()
+#introduction and menu
+
+def introFunct():
+  asc.introAnimation()
+  asc.titlePrint()
+  print("\u001b[31m\u001b[51mWelcome to PokeBattle! This program uses a Pokemon database to battle a player against a CPU\u001b[0m\n\u001b[37m\u001b[40mAll choices in the program are made using number inputs pertaining to listed options\u001b[0m\nThis is the main menu. Here you can choose to edit or osberve the database, and begin the game\u001b[0m\n")
+  print("\u001b[32mWill you go to the database menu or start the game?\u001b[0m")
+  print("1. Database\n2. Start Game")
+  choice = enterNumber("Which menu would you like? ", 2)
+  if choice == 1:
+    os.system("clear")
+    print("Accesing database...\n")
+    return False
+  elif choice == 2:
+    os.system("clear")
+    print("Beginning game...\n")
+    return True
 
 #makes and prints a healthbar 
 def makeHealthBar(pokeHealth):
@@ -22,7 +45,7 @@ def roundStart(plPokeName, plHealth, cpuPokeName, cpuHealth):
   #this will also print the health bar
   cpuHBar = makeHealthBar(cpuHealth)
   #TBA acsii of pokemon?
-  print(pokeball_ASCII)
+  print(asc.pokeballASCII)
   print("\u001b[1m{}\u001b[0m".format(plPoke[0]))
   plHBar = makeHealthBar(plHealth)
   
@@ -75,6 +98,7 @@ def typeEffect(attType, defType):
     #if none of these conditions then there is no special effect so 0 is returned
     return 0
 
+#removes hp from att and (de)buff from pokemon list, prins remaining HP
 def removeHP(pokeName, pokeHealth, attack, attackType, defType):
   typeBuff = typeEffect(attackType, defType)
   newHP = pokeHealth - attack - typeBuff
@@ -84,12 +108,13 @@ def removeHP(pokeName, pokeHealth, attack, attackType, defType):
     print("{} has {} HP left\n".format(pokeName, newHP))
   return newHP
 
+#states that a pokemon has fainted
 def pokeFaint(poke):
   print("{} has fainted!".format(poke))
   
+#prints winner
 def gameOver(winner):
   print("The {} has won!".format(winner))
-
 
 
 def enterNumber(text, range):
@@ -105,6 +130,16 @@ def enterNumber(text, range):
         print("That number is out of range, try again.\n")
     except ValueError:
         print("That isn't a valid option, try again\n")
+
+def playBGMusic():
+  mixer.music.load("battleBGMusic.wav")
+  mixer.music.play(loops=-1)
+
+def stopMusic():
+  mixer.music.stop()
+
+
+
 
 #Runs one round of poke game
 '''
@@ -126,25 +161,3 @@ os.system("clear")
 roundStart(plPoke[0], plHealth, cpuPoke[0], cpuHealth)
 '''
 
-#ASCII art
-pokeball_ASCII = r"""
-────────▄███████████▄────────
-─────▄███▓▓▓▓▓▓▓▓▓▓▓███▄─────
-────███▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓███────
-───██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██───
-──██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██──
-─██▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██─
-██▓▓▓▓▓▓▓▓▓███████▓▓▓▓▓▓▓▓▓██
-██▓▓▓▓▓▓▓▓██░░░░░██▓▓▓▓▓▓▓▓██
-██▓▓▓▓▓▓▓██░░███░░██▓▓▓▓▓▓▓██
-███████████░░███░░███████████
-██░░░░░░░██░░███░░██░░░░░░░██
-██░░░░░░░░██░░░░░██░░░░░░░░██
-██░░░░░░░░░███████░░░░░░░░░██
-─██░░░░░░░░░░░░░░░░░░░░░░░██─
-──██░░░░░░░░░░░░░░░░░░░░░██──
-───██░░░░░░░░░░░░░░░░░░░██───
-────███░░░░░░░░░░░░░░░███────
-─────▀███░░░░░░░░░░░███▀─────
-────────▀███████████▀────────"""
-#https://textart4u.blogspot.com/2014/04/pokeball-copy-paste-ascii-text-art.html
