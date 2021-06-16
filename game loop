@@ -1,17 +1,21 @@
 import sqlite3, sys
-import databaseFetch as db
+import database as db
 import gameComponents as game
 import os
 
 
 try:
   while True:
-    print("This is the intro while loop")
     round = 1
-    #introfunct()
+    game.playBGMusic()
+    startOpt = game.introFunct()
     
+    if startOpt == False:
+      print("Enter database accesing code here")
+      continue
+
     #This is where the player chooses the amount of pokemon they wish to play with
-    numPoke = game.enterNumber("How many pokemon would you like to play with?", 6)
+    numPoke = game.enterNumber("How many pokemon would you like to play with? ", 6)
     
     #This is where a function that assigns random pokemon will occur. These are lists nested lists of each poke
     plTotalPoke = randomPokeAssign(numPoke)
@@ -27,6 +31,8 @@ try:
     input()
     try:
       while True:
+        input("enter an input to start round {}".format(roundNum))
+
         #round starts at 1 as is only used to show next round number
         round += 1
         if plNewPoke == True:
@@ -47,6 +53,7 @@ try:
           if len(cpuTotalPoke) == 0: #no pokemon left
             #game ends, player is winner
             game.gameOver("player")
+            game.stopMusic()
             break
           else:
             cpuNewPoke == True
@@ -60,8 +67,11 @@ try:
           if len(plTotalPoke) == o: #no pokemon left
             #game ends, CPU wins
             game.gameOver("CPU")
-        input("enter an input to enter round {}".format(roundNum))
-        os.system("clear")
+            game.stopMusic()
+            break
+          else:
+            plNewPoke == True
+            continue
     #abandons game if cntrl + c
     except KeyboardInterrupt:
       print("\n\n\u001b[33mReturning to main menu...\u001b[0m\n")
@@ -71,16 +81,3 @@ except KeyboardInterrupt:
   print("\n\n\u001b[33mThis program will now close\nThank you for playing Pokecard Battle\n")
   exit()
 
-  '''
-FUNCTIONS LEFT TO CODE
-  L
-randomPokeAssign(numPoke)
-selectPoke(plTotalPoke)
-usePoke(plTotalPoke, pokeChoice)
-
-  R
-removeHP(cpuPoke, plAttack) 
-pokeFaint(cpuPoke)
-gameOver("player")
-
-  '''
