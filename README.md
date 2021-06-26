@@ -15,3 +15,4 @@ If using pycharm to run this code the os clearing code will not function the way
 Repl does not support music, but regardless both will run the program properly
 
 For use of program without a database, replace the game loop file with the mainTest file
+When using the mainTest file the only documents needed are asciiList, game components, the mainTest code and the music file
