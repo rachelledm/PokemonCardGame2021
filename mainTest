@@ -1,0 +1,85 @@
+#This code works without the database addition
+import gameComponents as game
+import os
+
+try:
+  timesRan = 0
+  while True:   
+    roundNum = 1
+    game.playBGMusic()
+    startOpt = game.introFunct(timesRan)
+    timesRan += 1
+    if startOpt == False:
+      print("The database code is not included in this version")
+      input()
+      continue
+
+    #This is where the player chooses the amount of pokemon they wish to play with
+    #For testing purposes, this is now a constant of 3 (as there are 3 test pokemon on each team)
+    numPoke = 3
+    
+    #Starts the player with a pokemon
+    plNewPoke = True
+    cpuNewPoke = True
+    
+    #Assigns variables for number of pokemon left
+    cpuPokeLeft = numPoke
+    plPokeLeft = numPoke
+    #TEST CODE
+    plTotalPoke = [["Blastoise", "Water", "Water Spout", 3, "Steam Blast", 2], ["Charmeleon", "Fire", "Fire Blast", 2, "Flame Wheel", 3], ["Rowlet", "Grass", "Seed Tackle", 2, "Grass Dive", 2]]
+    cpuTotalPoke = [["Charizard", "Fire", "Flamethrower", 3, "Scratch", 3], ["Venesaur", "Grass", "Vine Whip", 3, "Leaf Wind", 2], ["Oshawot", "Water", "Hydro Cannon", 3, "Water Spout", 2]]
+    #TEST CODE
+    try:
+      while True:
+        input("enter an input to start round {}!\n".format(roundNum))
+        os.system("clear")
+        #round starts at 1 as is only used to show next round number
+        roundNum += 1
+        if plNewPoke == True:
+          plHealth = game.health()
+          plPoke = plTotalPoke[0]
+          plNewPoke = False
+        if cpuNewPoke == True:        
+          cpuHealth = game.health()
+          cpuPoke = cpuTotalPoke[0]
+          cpuNewPoke = False
+        game.roundStart(plPoke[0],plHealth, cpuPoke[0], cpuHealth)
+        plAttack = game.chooseAttack(plPoke[0], plPoke[2], plPoke[3], plPoke[4], plPoke[5], False)
+        cpuHealth = game.removeHP(cpuPoke[0], cpuHealth, plAttack, plPoke[1], cpuPoke[1])
+        if cpuHealth <= 0:
+          #prints fainted pokemon name
+          game.pokeFaint(cpuPoke[0])
+          #removes fainted pokemon from available pokemon
+          cpuTotalPoke.remove(cpuPoke)
+          cpuNewPoke = True 
+          if len(cpuTotalPoke) == 0: #no pokemon left
+            #game ends, player is winner
+            game.gameOver("player")
+            game.stopMusic()
+            break
+          else:
+            cpuNewPoke == True
+            continue #This makes it so the opponent can't take their turn if their pokemon faints
+        cpuAttack = game.chooseAttack(cpuPoke[0], cpuPoke[2], cpuPoke[3], cpuPoke[4], cpuPoke[5], True) #choses a random attack
+        plHealth = game.removeHP(plPoke[0], plHealth, cpuAttack, cpuPoke[1], plPoke[1])
+        if plHealth <= 0:
+          game.pokeFaint(plPoke[0])
+          #removes fainted pokemon from available pokemon
+          plTotalPoke.remove(plPoke)
+          plNewPoke = True
+          if len(plTotalPoke) == 0:
+            #game ends, CPU wins
+            game.gameOver("CPU")
+            game.stopMusic()
+            break
+          else:
+            plNewPoke == True
+            continue
+    #abandons game if cntrl + c
+    except KeyboardInterrupt:
+      print("\n\n\u001b[33mReturning to main menu...\u001b[0m\n")
+      #I don't have to reassign any of the variables
+#quits if cntrl + c is pressed
+except KeyboardInterrupt:
+  print("\n\n\u001b[33mThis program will now close\nThank you for playing Pokecard Battle\n")
+  exit()
