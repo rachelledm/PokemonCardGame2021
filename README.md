@@ -10,3 +10,6 @@ The pokemon background music was custom made by Rachelle, using Chrome Music Lab
 
 This program is written in python, and uses the console to share information with the user.
 At any time the game can be quit by pressing cntl+c. In the main menu screen, the program can be closed by cntl+c as well.
+
+If using pycharm to run this code the os clearing code will not function the way it does in repl (where this was coded)
+Repl does not support music, but regardless both will run the program properly
