@@ -13,3 +13,5 @@ At any time the game can be quit by pressing cntl+c. In the main menu screen, th
 
 If using pycharm to run this code the os clearing code will not function the way it does in repl (where this was coded)
 Repl does not support music, but regardless both will run the program properly
+
+For use of program without a database, replace the game loop file with the mainTest file
