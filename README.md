@@ -14,5 +14,7 @@ At any time the game can be quit by pressing cntl+c. In the main menu screen, th
 If using pycharm to run this code the os clearing code will not function the way it does in repl (where this was coded)
 Repl does not support music, but regardless both will run the program properly
 
+If using pycharm for the mainTest code, pygame and termcolor must be installed
+
 For use of program without a database, replace the game loop file with the mainTest file
 When using the mainTest file the only documents needed are asciiList, game components, the mainTest code and the music file
